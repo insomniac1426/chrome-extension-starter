@@ -8,6 +8,20 @@ function setup() {
   });
 
   animateBoxes({ boxes, colors });
+
+  const bigBtn = document.getElementById("big-btn");
+  bigBtn.addEventListener("click", () => {
+    chrome.tabs.query(
+      {
+        active: true,
+        currentWindow: true,
+      },
+      (tabs) => {
+        const msg = { text: "popup_message" };
+        chrome.tabs.sendMessage(tabs[0].id, msg);
+      }
+    );
+  });
 }
 
 function animateBoxes({ boxes, colors }) {
